@@ -11,7 +11,7 @@ namespace OnlineTechShopApi.Entities
 
         public int ParentId { get; set; }
 
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
 
         public string ValidFilters { get; set; }
 

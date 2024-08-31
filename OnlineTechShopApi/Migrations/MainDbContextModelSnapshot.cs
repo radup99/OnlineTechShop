@@ -22,8 +22,9 @@ namespace OnlineTechShopApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryName")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ParentId")
                         .HasColumnType("INTEGER");

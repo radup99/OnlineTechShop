@@ -5,7 +5,7 @@
 namespace OnlineTechShopApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace OnlineTechShopApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ParentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryName = table.Column<int>(type: "INTEGER", nullable: false),
+                    CategoryName = table.Column<string>(type: "TEXT", nullable: false),
                     ValidFilters = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

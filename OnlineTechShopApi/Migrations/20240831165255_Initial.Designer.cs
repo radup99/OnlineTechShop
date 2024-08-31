@@ -10,8 +10,8 @@ using OnlineTechShopApi.Database;
 namespace OnlineTechShopApi.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20240831144824_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240831165255_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,8 +25,9 @@ namespace OnlineTechShopApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryName")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ParentId")
                         .HasColumnType("INTEGER");
