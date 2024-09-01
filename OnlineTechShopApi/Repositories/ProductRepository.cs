@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineTechShopApi.Database;
+using OnlineTechShopApi.Entities;
+
+namespace OnlineTechShopApi.Repositories
+{
+    public class ProductRepository : IRepository<Product>
+    {
+        private readonly MainDbContext _dbContext;
+        private readonly DbSet<Product> _dbSet;
+
+        public ProductRepository(MainDbContext dbContext)
+        {
+            _dbContext = dbContext;
+            _dbSet = dbContext.Set<Product>();
+        }
+
+        public async Task Create(Product product)
+        {
+            await _dbSet.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Product?> ReadById(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task Update(int id, Product t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteById(int id)
+        {
+            await _dbSet.Where(p => p.Id == id).ExecuteDeleteAsync();
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}
