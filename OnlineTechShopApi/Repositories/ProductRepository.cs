@@ -4,16 +4,10 @@ using OnlineTechShopApi.Entities;
 
 namespace OnlineTechShopApi.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository(MainDbContext dbContext) : IRepository<Product>
     {
-        private readonly MainDbContext _dbContext;
-        private readonly DbSet<Product> _dbSet;
-
-        public ProductRepository(MainDbContext dbContext)
-        {
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<Product>();
-        }
+        private readonly MainDbContext _dbContext = dbContext;
+        private readonly DbSet<Product> _dbSet = dbContext.Set<Product>();
 
         public async Task Create(Product product)
         {
@@ -26,7 +20,7 @@ namespace OnlineTechShopApi.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task Update(int id, Product t)
+        public async Task Update(int id, Product product)
         {
             throw new NotImplementedException();
         }
