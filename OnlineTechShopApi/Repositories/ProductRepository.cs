@@ -20,6 +20,11 @@ namespace OnlineTechShopApi.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public async Task<List<Product>?> ReadByCategoryId(int categoryId)
+        {
+            return await _dbSet.Where(p => p.CategoryId == categoryId).ToListAsync();
+        }
+
         public async Task Update(int id, Product product)
         {
             throw new NotImplementedException();
