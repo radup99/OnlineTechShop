@@ -1,5 +1,6 @@
 using OnlineTechShopApi.Database;
 using OnlineTechShopApi.Repositories;
+using OnlineTechShopApi.Services;
 
 namespace OnlineTechShopApi
 {
@@ -13,6 +14,8 @@ namespace OnlineTechShopApi
 
             builder.Services.AddDbContext<MainDbContext>();
             builder.Services.AddScoped<ProductRepository>();
+            builder.Services.AddScoped<CategoryRepository>();
+            builder.Services.AddScoped<ProductService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
