@@ -24,7 +24,7 @@ namespace OnlineTechShopApi.Controllers
         public async Task<IActionResult> GetByCategoryName(string name)
         {
             var products = await _productService.GetByCategoryName(name);
-            if (products == null || products.Count == 0)
+            if (products.Count == 0)
                 return NotFound($"No products found with category name: {name}");
             return Ok(products);
         }
@@ -33,7 +33,7 @@ namespace OnlineTechShopApi.Controllers
         public async Task<IActionResult> GetByCategoryId(int id)
         {
             var products = await _productService.GetByCategoryId(id);
-            if (products == null || products.Count == 0)
+            if (products.Count == 0)
                 return NotFound($"No products found with category ID: {id}");
             return Ok(products);
         }

@@ -13,16 +13,19 @@ namespace OnlineTechShopApi.Services
             return await _productRepository.ReadById(id);
         }
 
-        public async Task<List<Product>?> GetByCategoryId(int categoryId)
+        public async Task<List<Product>> GetByCategoryId(int categoryId)
         {
-            return await _productRepository.ReadByCategoryId(categoryId);
+            var productList = await _productRepository.ReadByCategoryId(categoryId);
+            return (productList != null) ? productList : [];
         }
 
-        public async Task<List<Product>?> GetByCategoryName(string categoryName)
+        public async Task<List<Product>> GetByCategoryName(string categoryName)
         {
             var category = await _categoryRepository.ReadByName(categoryName);
-            var categoryId = category != null ? category.Id : 0;
-            return await _productRepository.ReadByCategoryId(categoryId);
+            if (category == null)
+                return [];
+            var productList = await _productRepository.ReadByCategoryId(category.Id);
+            return (productList != null) ? productList : [];
         }
     }
 }
