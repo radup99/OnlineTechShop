@@ -20,6 +20,11 @@ namespace OnlineTechShopApi.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public async Task<List<Filter>?> ReadByFilterValue(string name, string value)
+        {
+            return await _dbSet.Where(f => f.FilterName.ToLower() == name.ToLower() && f.Value.ToLower() == value.ToLower()).ToListAsync();
+        }
+
         public async Task Update(int id, Filter filter)
         {
             throw new NotImplementedException();
@@ -27,7 +32,7 @@ namespace OnlineTechShopApi.Repositories
 
         public async Task DeleteById(int id)
         {
-            await _dbSet.Where(p => p.Id == id).ExecuteDeleteAsync();
+            await _dbSet.Where(f => f.Id == id).ExecuteDeleteAsync();
             await _dbContext.SaveChangesAsync();
         }
     }

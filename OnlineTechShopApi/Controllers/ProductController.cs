@@ -37,5 +37,14 @@ namespace OnlineTechShopApi.Controllers
                 return NotFound($"No products found with category ID: {id}");
             return Ok(products);
         }
+
+        [HttpGet("filter/{name}={value}")]
+        public async Task<IActionResult> GetByFilter(string name, string value)
+        {
+            var products = await _productService.GetByFilterValue(name, value);
+            if (products.Count == 0)
+                return NotFound($"No filtered products found.");
+            return Ok(products);
+        }
     }
 }
