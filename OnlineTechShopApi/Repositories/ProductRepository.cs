@@ -20,6 +20,18 @@ namespace OnlineTechShopApi.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public async Task<List<Product>?> ReadByIdList(List<int> idList)
+        {
+            List<Product> productList = [];
+            foreach(int id in idList)
+            {
+                Product? product = await this.ReadById(id);
+                if (product != null)
+                    productList.Add(product);
+            }
+            return productList;
+        }
+
         public async Task<List<Product>?> ReadByCategoryId(int categoryId)
         {
             return await _dbSet.Where(p => p.CategoryId == categoryId).ToListAsync();
