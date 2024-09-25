@@ -3,12 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OnlineTechShopApi.Entities
 {
-    public class Category
+    public class Category : EntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         public int ParentId { get; set; }
 
         public string CategoryName { get; set; }
