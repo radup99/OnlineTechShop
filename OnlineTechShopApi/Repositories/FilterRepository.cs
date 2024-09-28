@@ -13,5 +13,10 @@ namespace OnlineTechShopApi.Repositories
         {
             return await _dbSet.Where(f => f.FilterName.ToLower() == name.ToLower() && f.Value.ToLower() == value.ToLower()).ToListAsync();
         }
+
+        public async Task<List<Filter>?> ReadByCategoryId(int categoryId)
+        {
+            return await _dbSet.Where(f => f.CategoryId == categoryId).ToListAsync();
+        }
     }
 }
