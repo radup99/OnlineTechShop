@@ -29,9 +29,9 @@ namespace OnlineTechShopApi.Services
             return (productList != null) ? productList : [];
         }
 
-        public async Task<List<Product>> GetByFilterValue(string filterName, string filterValue)
+        public async Task<List<Product>> GetByFilterValue(string filterName, string filterValue, int categoryId)
         {
-            var filters = await _filterRepository.ReadByFilterValue(filterName, filterValue);
+            var filters = await _filterRepository.ReadByFilterValue(filterName, filterValue, categoryId);
             if (filters == null)
                 return [];
             var productIds = filters.Select(f => f.ProductId).ToList();

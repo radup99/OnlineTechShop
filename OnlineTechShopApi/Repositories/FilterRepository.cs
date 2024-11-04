@@ -9,9 +9,13 @@ namespace OnlineTechShopApi.Repositories
         private readonly MainDbContext _dbContext = dbContext;
         private readonly DbSet<Filter> _dbSet = dbContext.Set<Filter>();
 
-        public async Task<List<Filter>?> ReadByFilterValue(string name, string value)
+        public async Task<List<Filter>?> ReadByFilterValue(string name, string value, int categoryId)
         {
-            return await _dbSet.Where(f => f.FilterName.ToLower() == name.ToLower() && f.Value.ToLower() == value.ToLower()).ToListAsync();
+            return await _dbSet.Where(
+                f => f.FilterName.ToLower() == name.ToLower() && 
+                f.Value.ToLower() == value.ToLower() &&
+                f.CategoryId == categoryId
+                ).ToListAsync();
         }
 
         public async Task<List<Filter>?> ReadByCategoryId(int categoryId)

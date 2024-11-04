@@ -26,7 +26,7 @@ namespace OnlineTechShopApi.Services
                     filterDict.Add(f.FilterName, [f.Value]);
                 }
             }
-            return filterDict.Select(fd => new FilterGetModel(fd.Key, fd.Value)).ToList();
+            return filterDict.Where(fd => fd.Value.Count > 1).Select(fd => new FilterGetModel(fd.Key, fd.Value)).ToList();
         }
     }
 }
