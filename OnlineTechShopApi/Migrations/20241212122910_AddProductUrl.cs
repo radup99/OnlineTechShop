@@ -5,7 +5,7 @@
 namespace OnlineTechShopApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class AddProductUrl : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,7 @@ namespace OnlineTechShopApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     Sku = table.Column<string>(type: "TEXT", nullable: false),
+                    UrlPath = table.Column<string>(type: "TEXT", nullable: false),
                     ProductName = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<float>(type: "REAL", nullable: false),
                     Stock = table.Column<int>(type: "INTEGER", nullable: false),

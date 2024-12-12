@@ -9,6 +9,11 @@ namespace OnlineTechShopApi.Repositories
         private readonly MainDbContext _dbContext = dbContext;
         private readonly DbSet<Product> _dbSet = dbContext.Set<Product>();
 
+        public async Task<Product?> ReadByUrlPath(string urlPath)
+        {
+            return await _dbSet.FirstOrDefaultAsync(p => p.UrlPath.ToLower() == urlPath.ToLower());
+        }
+
         public async Task<List<Product>?> ReadByCategoryId(int categoryId)
         {
             return await _dbSet.Where(p => p.CategoryId == categoryId).ToListAsync();

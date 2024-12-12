@@ -10,8 +10,8 @@ using OnlineTechShopApi.Database;
 namespace OnlineTechShopApi.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20240831165255_Initial")]
-    partial class Initial
+    [Migration("20241212122910_AddProductUrl")]
+    partial class AddProductUrl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,10 @@ namespace OnlineTechShopApi.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UrlPath")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

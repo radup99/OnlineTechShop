@@ -9,6 +9,8 @@ namespace OnlineTechShopApi.Entities
 
         public string Sku { get; set; }
 
+        public string UrlPath { get; set; }
+
         public string ProductName { get; set; }
 
         public float Price { get; set; }

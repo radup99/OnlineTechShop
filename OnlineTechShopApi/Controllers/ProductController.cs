@@ -11,12 +11,21 @@ namespace OnlineTechShopApi.Controllers
         private readonly ILogger<ProductController> _logger = logger;
         private readonly ProductService _productService = productService;
 
-        [HttpGet("product-id/{id}")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetById(id);
             if (product == null)
                 return NotFound($"No product found with ID: {id}");
+            return Ok(product);
+        }
+
+        [HttpGet("url-path/{urlPath}")]
+        public async Task<IActionResult> GetByUrlPath(string urlPath)
+        {
+            var product = await _productService.GetByUrlPath(urlPath);
+            if (product == null)
+                return NotFound($"No product found at URL path: {urlPath}");
             return Ok(product);
         }
 

@@ -94,6 +94,10 @@ namespace OnlineTechShopApi.Migrations
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UrlPath")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);

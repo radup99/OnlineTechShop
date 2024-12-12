@@ -14,6 +14,11 @@ namespace OnlineTechShopApi.Services
             return await _productRepository.ReadById(id);
         }
 
+        public async Task<Product?> GetByUrlPath(string urlPath)
+        {
+            return await _productRepository.ReadByUrlPath(urlPath);
+        }
+
         public async Task<List<Product>> GetByCategoryId(int categoryId)
         {
             var productList = await _productRepository.ReadByCategoryId(categoryId);
