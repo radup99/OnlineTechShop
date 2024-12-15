@@ -1,0 +1,108 @@
+﻿@page "/category/{categoryName}"
+@using OnlineTechShopWebApp.Models
+@inject HttpClient Http
+
+@if (productList == null && filterList == null)
+{
+    <p>Loading...</p>
+}
+else {
+<body>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div id="aside" class="col-md-3">
+					@foreach (var filter in filterList)
+					{
+					<div class="aside">
+						<h3 class="aside-title">@filter.Name</h3>
+						@for (int i = 0; i < filter.Values.Count; i++)
+						{
+						<div class="checkbox-filter">
+							<div class="input-checkbox">
+								<input type="checkbox" id="@filter.Name.ToLower().Replace(" ", "-")-@i">
+								<label for="@filter.Name.ToLower().Replace(" ", "-")-@i">
+									<span></span>
+									@filter.Values[i]
+								</label>
+							</div>
+						</div>
+						}
+					</div>
+					}
+				</div>
+				<div id="store" class="col-md-9">
+					<div class="store-filter clearfix">
+						<div class="store-sort">
+							<label>
+								Sort By:
+								<select class="input-select">
+									<option value="0">Price</option>
+									<option value="1">Name</option>
+								</select>
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						@foreach (var product in productList)
+						{
+						<div class="col-md-4 col-xs-6">
+							<div class="product">
+								<a href="/product/@product.UrlPath" class="product-img">
+									<img src="./img/product-placeholder.jpg" alt="">
+								</a>
+								<div class="product-body">
+									<h3 class="product-name"><a href="/product/@product.UrlPath">@product.ProductName.Substring(0,25)</a></h3>
+									<h4 class="product-price">@product.Price RON</h4>
+									<div class="product-rating">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="product-btns">
+										<button class="add-to-wishlist"><i class="fa fa-heart"></i><span class="tooltipp">add to wishlist</span></button>
+										<button class="add-to-compare"><i class="fa fa-shopping-cart"></i><span class="tooltipp">add to cart</span></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+}
+
+@code {
+	[Parameter]
+	public string categoryName { get; set; } = "0";
+	[Parameter]
+	public string? filtername { get; set; } = null;
+	[Parameter]
+	public string? filtervalue { get; set; } = null;
+
+	public List<ProductData>? productList = null;
+	public List<FilterData>? filterList = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var categoryId = CategoryDict[categoryName.ToLower()];
+		productList = await Http.GetFromJsonAsync<List<ProductData>>($"/products/category-id/{categoryId}");
+		filterList = await Http.GetFromJsonAsync<List<FilterData>>($"/filters/category-id/{categoryId}");
+	}
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await OnInitializedAsync();
+	}
+
+	public Dictionary<string, string> CategoryDict = new Dictionary<string, string>
+	{
+		{"cpu", "1"},
+		{"graphics-card", "2"},
+	};
+}
