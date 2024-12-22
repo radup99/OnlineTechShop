@@ -1,0 +1,101 @@
+﻿@page "/product/{urlPath}"
+@using OnlineTechShopWebApp.Models
+@inject HttpClient Http
+
+@if (product == null) 
+{
+<p>Loading...</p>
+}
+else 
+{
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<img id="product-main-image" src="./img/product-placeholder.jpg">
+			</div>
+
+			<div class="col-md-6">
+				<div class="product-details">
+					<h2 class="product-name">@product.ProductName</h2>
+					<div>
+						<div class="product-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</div>
+					</div>
+					<div>
+						<h3 class="product-price">@product.Price lei</h3>
+						<span class="product-available">In Stock</span>
+					</div>
+
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+					<div class="add-to-cart">
+						<div class="qty-label">
+							Qty
+							<div class="input-number">
+								<input type="number">
+								<span class="qty-up">+</span>
+								<span class="qty-down">-</span>
+							</div>
+						</div>
+						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+					</div>
+
+					<ul class="product-btns">
+						<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+					</ul>
+
+					<ul class="product-links">
+						<li>Category:</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<div class="col-md-12">
+				<div id="product-tab">
+					<ul class="tab-nav">
+						<li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
+						<li><a data-toggle="tab" href="#tab2">Reviews</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div id="tab1" class="tab-pane fade in active">
+							<div class="row">
+								<div class="col-md-12">
+									<p>@product.Specifications</p>
+								</div>
+							</div>
+						</div>
+
+						<div id="tab2" class="tab-pane fade in">
+							<div class="row">
+								<div class="col-md-12">
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+}
+
+@code {
+	[Parameter]
+	public string urlPath { get; set; } = "";
+
+	public ProductData? product = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		product = await Http.GetFromJsonAsync<ProductData>($"/products/url-path/{urlPath}");
+	}
+}

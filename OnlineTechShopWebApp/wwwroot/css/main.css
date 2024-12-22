@@ -1,0 +1,10 @@
+﻿#product-tab {
+    margin-top: 0;
+}
+
+#product-main-image {
+    display: block;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+}
