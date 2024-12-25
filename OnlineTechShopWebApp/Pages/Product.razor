@@ -38,9 +38,9 @@ else
 						<div class="qty-label">
 							Qty
 							<div class="input-number">
-								<input type="number">
-								<span class="qty-up">+</span>
-								<span class="qty-down">-</span>
+								<input type="number" value="@productQuantity">
+								<span class="qty-up" @onclick="() => changeQuantity(1)">+</span>
+								<span class="qty-down" @onclick="() => changeQuantity(-1)">-</span>
 							</div>
 						</div>
 						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
@@ -94,8 +94,17 @@ else
 
 	public ProductData? product = null;
 
+	public int productQuantity = 1;
+
 	protected override async Task OnInitializedAsync()
 	{
 		product = await Http.GetFromJsonAsync<ProductData>($"/products/url-path/{urlPath}");
+	}
+
+	public void changeQuantity(int p) {
+		if (productQuantity + p >= 1)
+		{
+			productQuantity += p;
+		}
 	}
 }
