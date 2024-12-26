@@ -11,7 +11,7 @@ namespace OnlineTechShopWebApp
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BackendUrl"] ?? "https://localhost:7141") });
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["OtsApiUrl"] ?? "") });
 
 			await builder.Build().RunAsync();
         }
