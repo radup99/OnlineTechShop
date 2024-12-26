@@ -10,7 +10,7 @@ using OnlineTechShopApi.Database;
 namespace OnlineTechShopApi.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20241226183858_AddUsers")]
+    [Migration("20241226203103_AddUsers")]
     partial class AddUsers
     {
         /// <inheritdoc />
@@ -112,7 +112,7 @@ namespace OnlineTechShopApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmailAdress")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

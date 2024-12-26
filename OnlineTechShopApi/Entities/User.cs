@@ -10,7 +10,7 @@ namespace OnlineTechShopApi.Entities
 
         public UserRole Role { get; set; }
 
-        public string EmailAdress { get; set; }
+        public string EmailAddress { get; set; }
 
         public string FirstName { get; set; }
 

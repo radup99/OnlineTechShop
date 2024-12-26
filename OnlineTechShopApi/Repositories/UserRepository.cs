@@ -13,5 +13,10 @@ namespace OnlineTechShopApi.Repositories
         {
             return await _dbSet.FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
         }
+
+        public async Task<User?> ReadByEmailAddress(string emailAddress)
+        {
+            return await _dbSet.FirstOrDefaultAsync(u => u.EmailAddress.ToLower() == emailAddress.ToLower());
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace OnlineTechShopApi
             builder.Services.AddScoped<UserRepository>();
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<FilterService>();
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
