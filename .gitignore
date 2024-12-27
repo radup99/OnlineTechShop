@@ -2,6 +2,10 @@ OnlineTechShopApi/.vs
 OnlineTechShopApi/bin
 OnlineTechShopApi/obj
 OnlineTechShopApi/*.db*
+OnlineTechShopApi/Properties/PublishProfiles
+OnlineTechShopApi/Properties/ServiceDependencies
 OnlineTechShopWebApp/.vs
 OnlineTechShopWebApp/bin
 OnlineTechShopWebApp/obj
+OnlineTechShopWebApp/Properties/PublishProfiles
+OnlineTechShopWebApp/Properties/ServiceDependencies
