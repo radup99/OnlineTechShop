@@ -1,6 +1,6 @@
 ﻿namespace OnlineTechShopWebApp.Models
 {
-    public class ProductData
+    public class ProductGetModel
     {
         public int CategoryId { get; set; }
 
@@ -20,6 +20,6 @@
 
         public int Id { get; set; }
 
-        public ProductData() { }
+        public ProductGetModel() { }
     }
 }

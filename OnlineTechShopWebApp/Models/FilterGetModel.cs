@@ -1,11 +1,11 @@
 ﻿namespace OnlineTechShopWebApp.Models
 {
-    public class FilterData
+    public class FilterGetModel
     {
         public string Name { get; set; }
 
         public List<string> Values { get; set; }
 
-        public FilterData() { }
+        public FilterGetModel() { }
     }
 }

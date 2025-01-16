@@ -92,13 +92,13 @@ else
 	[Parameter]
 	public string urlPath { get; set; } = "";
 
-	public ProductData? product = null;
+	public ProductGetModel? product = null;
 
 	public int productQuantity = 1;
 
 	protected override async Task OnInitializedAsync()
 	{
-		product = await Http.GetFromJsonAsync<ProductData>($"/products/url-path/{urlPath}");
+		product = await Http.GetFromJsonAsync<ProductGetModel>($"/products/url-path/{urlPath}");
 	}
 
 	public void changeQuantity(int p) {

@@ -85,14 +85,14 @@ else {
 	[Parameter]
 	public string? filtervalue { get; set; } = null;
 
-	public List<ProductData>? productList = null;
-	public List<FilterData>? filterList = null;
+	public List<ProductGetModel>? productList = null;
+	public List<FilterGetModel>? filterList = null;
 
 	protected override async Task OnInitializedAsync()
 	{
 		var categoryId = CategoryDict[categoryName.ToLower()];
-		productList = await Http.GetFromJsonAsync<List<ProductData>>($"/products/category-id/{categoryId}");
-		filterList = await Http.GetFromJsonAsync<List<FilterData>>($"/filters/category-id/{categoryId}");
+		productList = await Http.GetFromJsonAsync<List<ProductGetModel>>($"/products/category-id/{categoryId}");
+		filterList = await Http.GetFromJsonAsync<List<FilterGetModel>>($"/filters/category-id/{categoryId}");
 	}
 
 	protected override async Task OnParametersSetAsync()
