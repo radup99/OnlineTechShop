@@ -1,5 +1,6 @@
 ﻿@page "/category/{categoryName}"
 @using OnlineTechShopWebApp.Models
+@using OnlineTechShopWebApp.Components
 @inject HttpClient Http
 
 @if (productList == null && filterList == null)
@@ -14,21 +15,7 @@ else {
 				<div id="aside" class="col-md-3">
 					@foreach (var filter in filterList)
 					{
-					<div class="aside">
-						<h3 class="aside-title">@filter.Name</h3>
-						@for (int i = 0; i < filter.Values.Count; i++)
-						{
-						<div class="checkbox-filter">
-							<div class="input-checkbox">
-								<input type="checkbox" id="@filter.Name.ToLower().Replace(" ", "-")-@i">
-								<label for="@filter.Name.ToLower().Replace(" ", "-")-@i">
-									<span></span>
-									@filter.Values[i]
-								</label>
-							</div>
-						</div>
-						}
-					</div>
+					<FilterComponent @ref="@filterRef" Filter=filter />
 					}
 				</div>
 				<div id="store" class="col-md-9">
@@ -87,6 +74,9 @@ else {
 
 	public List<ProductGetModel>? productList = null;
 	public List<FilterGetModel>? filterList = null;
+
+	public List<FilterComponent> filterComponents = new List<FilterComponent>();
+	public FilterComponent filterRef { set { filterComponents.Add(value); } }
 
 	protected override async Task OnInitializedAsync()
 	{
