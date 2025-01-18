@@ -1,11 +1,11 @@
 ﻿namespace OnlineTechShopApi.Models
 {
-    public class FilterGetModel
+    public class FilterModel
     {
         public string Name { get; set; }
         public List<string> Values { get; set; }
 
-        public FilterGetModel(string name, List<string> values)
+        public FilterModel(string name, List<string> values)
         {
             Name = name;
             Values = values;

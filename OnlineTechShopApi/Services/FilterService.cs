@@ -7,7 +7,7 @@ namespace OnlineTechShopApi.Services
     {
         private readonly FilterRepository _filterRepository = fRep;
 
-        public async Task<List<FilterGetModel>> GetAllFiltersByCategory(int categoryId)
+        public async Task<List<FilterModel>> GetAllFiltersByCategory(int categoryId)
         {
             var filters = await _filterRepository.ReadByCategoryId(categoryId);
             if (filters == null)
@@ -26,7 +26,7 @@ namespace OnlineTechShopApi.Services
                     filterDict.Add(f.FilterName, [f.Value]);
                 }
             }
-            return filterDict.Where(fd => fd.Value.Count > 1).Select(fd => new FilterGetModel(fd.Key, fd.Value)).ToList();
+            return filterDict.Where(fd => fd.Value.Count > 1).Select(fd => new FilterModel(fd.Key, fd.Value)).ToList();
         }
     }
 }
