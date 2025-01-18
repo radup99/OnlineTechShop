@@ -1,5 +1,6 @@
 ﻿using OnlineTechShopApi.Repositories;
 using OnlineTechShopApi.Models;
+using System.Text.RegularExpressions;
 
 namespace OnlineTechShopApi.Services
 {
@@ -28,5 +29,17 @@ namespace OnlineTechShopApi.Services
             }
             return filterDict.Where(fd => fd.Value.Count > 1).Select(fd => new FilterModel(fd.Key, fd.Value)).ToList();
         }
-    }
+
+		public List<string> ValidateFilterParams(List<string> filters)
+		{
+			List<string> invalidFilters = [];
+			foreach (var filter in filters)
+			{
+				var match = Regex.Match(filter, @".*\s*=\s*\[.*\]");
+				if (!match.Success)
+					invalidFilters.Add(filter);
+			}
+			return invalidFilters;
+		}
+	}
 }

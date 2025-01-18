@@ -1,4 +1,5 @@
 ﻿using OnlineTechShopApi.Entities;
+using OnlineTechShopApi.Models;
 using OnlineTechShopApi.Repositories;
 
 namespace OnlineTechShopApi.Services
@@ -34,15 +35,20 @@ namespace OnlineTechShopApi.Services
             return (productList != null) ? productList : [];
         }
 
-        public async Task<List<Product>> GetByFilterValue(string filterName, string filterValues, int categoryId)
-        {
-            List<string> filterValueList = [.. filterValues.Split(',')];
-            var filters = await _filterRepository.ReadByFilterValue(filterName, filterValueList, categoryId);
-            if (filters == null)
-                return [];
-            var productIds = filters.Select(f => f.ProductId).ToList();
-            var productList = await _productRepository.ReadByIdList(productIds);
-            return (productList != null) ? productList : [];
-        }
-    }
+		public async Task<List<Product>> GetByFilters(List<string> filters, int categoryId)
+		{
+			List<FilterModel> filterModels = filters.Select(f => new FilterModel(f)).ToList();
+            var filterQuery = await _filterRepository.ReadByFilterValue(filterModels[0].Name, filterModels[0].Values, categoryId);
+            List<int> productIds = filterQuery.Select(f => f.ProductId).ToList();
+
+            foreach(var filterModel in filterModels.Skip(1))
+            {
+				filterQuery = await _filterRepository.ReadByFilterValue(filterModel.Name, filterModel.Values, categoryId, productIds);
+				productIds = filterQuery.Select(f => f.ProductId).ToList();
+			}
+
+			var productList = await _productRepository.ReadByIdList(productIds);
+			return (productList != null) ? productList : [];
+		}
+	}
 }
