@@ -47,10 +47,10 @@ namespace OnlineTechShopApi.Controllers
             return Ok(products);
         }
 
-        [HttpGet("category-id/{id}/filters/{name}={value}")]
-        public async Task<IActionResult> GetByFilter(string name, string value, int id)
+        [HttpGet("category-id/{id}/filters/{name}=[[{values}]]")]
+        public async Task<IActionResult> GetByFilter(string name, string values, int id)
         {
-            var products = await _productService.GetByFilterValue(name, value, id);
+            var products = await _productService.GetByFilterValue(name, values, id);
             if (products.Count == 0)
                 return NotFound($"No filtered products found.");
             return Ok(products);
