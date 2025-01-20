@@ -9,9 +9,9 @@ namespace OnlineTechShopApi.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UserController(ILogger<FilterController> logger, UserService userService) : ControllerBase
+    public class UserController(ILogger<UserController> logger, UserService userService) : ControllerBase
     {
-        private readonly ILogger<FilterController> _logger = logger;
+        private readonly ILogger<UserController> _logger = logger;
         private readonly UserService _userService = userService;
 
         [HttpPost("register")]
