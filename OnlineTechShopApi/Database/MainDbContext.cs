@@ -9,6 +9,7 @@ namespace OnlineTechShopApi.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<Filter> Filters { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public MainDbContext()
         {
@@ -26,6 +27,7 @@ namespace OnlineTechShopApi.Database
             modelBuilder.Entity<Category>().ToTable("Categories");
             modelBuilder.Entity<Filter>().ToTable("Filters");
             modelBuilder.Entity<User>().ToTable("Users");
-        }
+			modelBuilder.Entity<Order>().ToTable("Orders");
+		}
     }
 }
