@@ -13,22 +13,22 @@ namespace OnlineTechShopApi.Repositories
         {
             values = values.ConvertAll(v => v.ToLower());
             return await _dbSet.Where(
-                f => f.FilterName.ToLower() == name.ToLower() && 
+                f => f.FilterName.ToLower() == name.ToLower() &&
                 values.Contains(f.Value.ToLower()) &&
                 f.CategoryId == categoryId
                 ).ToListAsync();
         }
 
-		public async Task<List<Filter>?> ReadByFilterValue(string name, List<string> values, int categoryId, List<int> productIds)
-		{
-			values = values.ConvertAll(v => v.ToLower());
-			return await _dbSet.Where(
-				f => f.FilterName.ToLower() == name.ToLower() &&
-				values.Contains(f.Value.ToLower()) &&
-				f.CategoryId == categoryId &&
+        public async Task<List<Filter>?> ReadByFilterValue(string name, List<string> values, int categoryId, List<int> productIds)
+        {
+            values = values.ConvertAll(v => v.ToLower());
+            return await _dbSet.Where(
+                f => f.FilterName.ToLower() == name.ToLower() &&
+                values.Contains(f.Value.ToLower()) &&
+                f.CategoryId == categoryId &&
                 productIds.Contains(f.ProductId)
-				).ToListAsync();
-		}
+                ).ToListAsync();
+        }
 
         public async Task<List<Filter>?> ReadByCategoryId(int categoryId)
         {

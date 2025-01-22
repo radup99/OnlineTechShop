@@ -18,7 +18,7 @@ namespace OnlineTechShopApi.Controllers
         public async Task<IActionResult> RegisterUser(UserRegisterPostModel registerModel)
         {
             var result = await _userService.RegisterUser(registerModel);
-            switch (result) 
+            switch (result)
             {
                 case RegisterResult.Success:
                     return Ok();

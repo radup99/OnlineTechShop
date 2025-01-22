@@ -10,7 +10,7 @@ namespace OnlineTechShopApi.Controllers
 
         private readonly ILogger<ProductController> _logger = logger;
         private readonly ProductService _productService = productService;
-		private readonly FilterService _filterService = filterService;
+        private readonly FilterService _filterService = filterService;
 
         [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -48,18 +48,18 @@ namespace OnlineTechShopApi.Controllers
             return Ok(products);
         }
 
-		[HttpGet("category-id/{id}/filters/{filterList}")]
-		public async Task<IActionResult> GetByFilters(string filterList, int id)
-		{
+        [HttpGet("category-id/{id}/filters/{filterList}")]
+        public async Task<IActionResult> GetByFilters(string filterList, int id)
+        {
             var filters = filterList.Split(',').ToList().ConvertAll(f => f.Trim());
             var invalidFilters = _filterService.ValidateFilterParams([.. filters]);
             if (invalidFilters.Count > 0)
                 return BadRequest($"Invalid filters: {String.Join("; ", invalidFilters)}");
 
             var products = await _productService.GetByFilters(filters, id);
-			if (products.Count == 0)
-				return NotFound($"No filtered products found.");
-			return Ok(products);
-		}
-	}
+            if (products.Count == 0)
+                return NotFound($"No filtered products found.");
+            return Ok(products);
+        }
+    }
 }

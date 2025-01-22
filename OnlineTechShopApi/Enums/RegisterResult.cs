@@ -5,6 +5,5 @@
         Success = 0,
         ExistingUsername = 1,
         ExistingEmail = 2,
-
     }
 }

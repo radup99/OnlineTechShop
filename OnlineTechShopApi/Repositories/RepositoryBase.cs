@@ -4,7 +4,7 @@ using OnlineTechShopApi.Entities;
 
 namespace OnlineTechShopApi.Repositories
 {
-    public abstract class RepositoryBase<T>(MainDbContext dbContext) where T: EntityBase
+    public abstract class RepositoryBase<T>(MainDbContext dbContext) where T : EntityBase
     {
         private readonly MainDbContext _dbContext = dbContext;
         private readonly DbSet<T> _dbSet = dbContext.Set<T>();

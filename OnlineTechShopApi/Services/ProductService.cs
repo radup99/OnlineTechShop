@@ -35,20 +35,20 @@ namespace OnlineTechShopApi.Services
             return (productList != null) ? productList : [];
         }
 
-		public async Task<List<Product>> GetByFilters(List<string> filters, int categoryId)
-		{
-			List<FilterModel> filterModels = filters.Select(f => new FilterModel(f)).ToList();
+        public async Task<List<Product>> GetByFilters(List<string> filters, int categoryId)
+        {
+            List<FilterModel> filterModels = filters.Select(f => new FilterModel(f)).ToList();
             var filterQuery = await _filterRepository.ReadByFilterValue(filterModels[0].Name, filterModels[0].Values, categoryId);
             List<int> productIds = filterQuery.Select(f => f.ProductId).ToList();
 
-            foreach(var filterModel in filterModels.Skip(1))
+            foreach (var filterModel in filterModels.Skip(1))
             {
-				filterQuery = await _filterRepository.ReadByFilterValue(filterModel.Name, filterModel.Values, categoryId, productIds);
-				productIds = filterQuery.Select(f => f.ProductId).ToList();
-			}
+                filterQuery = await _filterRepository.ReadByFilterValue(filterModel.Name, filterModel.Values, categoryId, productIds);
+                productIds = filterQuery.Select(f => f.ProductId).ToList();
+            }
 
-			var productList = await _productRepository.ReadByIdList(productIds);
-			return (productList != null) ? productList : [];
-		}
-	}
+            var productList = await _productRepository.ReadByIdList(productIds);
+            return (productList != null) ? productList : [];
+        }
+    }
 }

@@ -27,7 +27,7 @@ namespace OnlineTechShopApi.Database
             modelBuilder.Entity<Category>().ToTable("Categories");
             modelBuilder.Entity<Filter>().ToTable("Filters");
             modelBuilder.Entity<User>().ToTable("Users");
-			modelBuilder.Entity<Order>().ToTable("Orders");
-		}
+            modelBuilder.Entity<Order>().ToTable("Orders");
+        }
     }
 }
