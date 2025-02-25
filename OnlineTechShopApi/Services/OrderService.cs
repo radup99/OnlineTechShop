@@ -18,48 +18,51 @@ namespace OnlineTechShopApi.Services
             List<int> insufficientStockIds;
             List<Product> products;
 
-            (invalidIds, products) = await CheckProductIds(orderModel.Products);
+            invalidIds = await CheckProductIds(orderModel.Products);
             if (invalidIds.Count != 0)
                 return (OrderPostResult.InvalidProducts, string.Join(',', invalidIds));
 
-            insufficientStockIds = await UpdateProductStocks(products, orderModel.Products);
+            insufficientStockIds = await UpdateProductStocks(orderModel.Products);
             if (insufficientStockIds.Count != 0)
-                return (OrderPostResult.InsufficientStock, string.Join(',', invalidIds));
+                return (OrderPostResult.InsufficientStock, string.Join(',', insufficientStockIds));
 
             Order order = new(orderModel, 0);
             await _orderRepository.Create(order);
             return (OrderPostResult.Success, "");
         }
 
-        public async Task<(List<int>, List<Product>)> CheckProductIds(List<OrderedProductModel> productModels)
+        public async Task<List<int>> CheckProductIds(List<OrderedProductModel> productModels)
         {
             List<int> invalidIds = [];
-            List<Product> products = [];
             foreach (var productModel in productModels)
             {
                 var product = await _productRepository.ReadById(productModel.Id);
                 if (product == null)
                     invalidIds.Add(productModel.Id);
-                else
-                    products.Add(product);
             }
-            return (invalidIds, products);
+            return invalidIds.Distinct().ToList();
         }
 
-        public async Task<List<int>> UpdateProductStocks(List<Product> products, List<OrderedProductModel> productModels)
+        public async Task<List<int>> UpdateProductStocks(List<OrderedProductModel> productModels)
         {
             List<int> insufficientStockIds = [];
-            for (int i = 0; i < products.Count; i++)
+            foreach (var productModel in productModels)
             {
-                if (products[i].Stock < productModels[i].Quantity)
-                    insufficientStockIds.Add(products[i].Id);
-                else
+                var product = await _productRepository.ReadById(productModel.Id);
+                int totalQuantity = productModels.Where(pm => pm.Id == productModel.Id).Select(pm => pm.Quantity).Sum();
+                if (product.Stock < totalQuantity)
+                    insufficientStockIds.Add(productModel.Id);
+            }
+            if (insufficientStockIds.Count() == 0)
+            {
+                foreach (var productModel in productModels)
                 {
-                    products[i].Stock -= productModels[i].Quantity;
-                    await _productRepository.Update(products[i]);
+                    var product = await _productRepository.ReadById(productModel.Id);
+                    product.Stock -= productModel.Quantity;
+                    await _productRepository.Update(product);
                 }
             }
-            return insufficientStockIds;
+            return insufficientStockIds.Distinct().ToList();
         }
     }
 }
